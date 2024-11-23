@@ -118,8 +118,6 @@ let messageArea = document.querySelector(".message");
 
 checkButton.addEventListener("click", handleGuess);
 
-console.log(wordToGuess);
-
 function handleGuess() {
   let successGuess = true;
 
@@ -143,7 +141,7 @@ function handleGuess() {
       inputField.classList.add("not-in-place");
       successGuess = false;
     } else {
-      // Letter Is Wrong
+      // Letter Is Wrong OR The Input Value Is Empty
       inputField.classList.add("no");
       successGuess = false;
     }
