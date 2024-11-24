@@ -211,23 +211,26 @@ function getHint() {
   if (numberOfHints === 0) {
     hintButton.disabled = true;
   }
-
   const enabledInputs = document.querySelectorAll("input:not([disabled])");
-
+  
+  // احصل على الحقول الفارغة فقط
   const emptyEnabledInputs = Array.from(enabledInputs).filter((input) => {
-    return input.value === "";
+    return input.value == "";
   });
 
   if (emptyEnabledInputs.length > 0) {
-    const randomIndex = Math.floor(Math.random() * emptyEnabledInputs.length);
-    const randomInput = emptyEnabledInputs[randomIndex];
-    const indexToFill = Array.from(emptyEnabledInputs).indexOf(randomInput);
-    if (indexToFill !== -1) {
-      randomInput.value = wordToGuess[indexToFill].toUpperCase();
-    }
+    // ابحث عن الحرف الصحيح في الكلمة لم يتم إدخاله بعد
+    // نستخدم emptyEnabledInputs[0] 
+    // لأننا نريد ملء أول حقل فارغ فقط عندما نضغط على زر المساعدة، مما يضمن أن المساعدة تملأ الحقول الفارغة بالترتيب الصحيح.
+    const emptyInputIndex = Array.from(enabledInputs).indexOf(emptyEnabledInputs[0]);
+
+    // إذا كانت الحقول الفارغة موجودة، قم بإدخال الحرف الصحيح في المكان الصحيح
+    const letterToFill = wordToGuess[emptyInputIndex].toUpperCase();
+
+    // ملء الحرف الصحيح أو ملء أول حرف فارغ موجود عندي 
+    emptyEnabledInputs[0].value = letterToFill;
   }
 }
-
 // ======================================================================== //
 
 function handleBackSpace(event) {
